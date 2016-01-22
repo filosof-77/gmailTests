@@ -1,0 +1,32 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Google Mail Tests" verbose="1">
+    <!--<test name="SetUp Tests">-->
+    <!--<classes>-->
+    <!--<class name="com.gmail.RegistrationPageTest"/>-->
+    <!--</classes>-->
+    <!--</test>-->
+    <test name="Login">
+        <classes>
+            <class name="com.gmail.LoginPageTest"/>
+        </classes>
+    </test>
+    <test name="Send Mail">
+        <classes>
+            <class name="com.gmail.MainGmailPageTest">
+                <methods>
+                    <include name="testSendMail"/>
+                    <include name="testCheckNewMail"/>
+                    <include name="testCheckMail"/>
+                    <include name="testReplyToTestMail"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="TearDown (delete temp messages)">
+        <classes>
+            <class name="com.gmail.AfterTests"/>
+        </classes>
+    </test>
+
+</suite>
