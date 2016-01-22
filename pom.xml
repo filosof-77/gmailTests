@@ -13,8 +13,6 @@
         <!--chrome, firefox-->
         <browser>firefox</browser>
         <browser>chrome</browser>
-        <user>test</user>
-        <user>temp</user>
         <selenium.version>2.49.1</selenium.version>
 
     </properties>
