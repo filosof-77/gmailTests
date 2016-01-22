@@ -4,6 +4,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import static org.openqa.selenium.By.id;
+import static org.openqa.selenium.By.xpath;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
+
 /**
  * Created with Intellij IDEA
  * User: filosof_77
@@ -14,35 +18,40 @@ public class SignUpPage extends Page {
 
     public SignUpPage enterFirstName(String name) {
         WebElement firstNameTf = findElementById("FirstName");
-        enterText(firstNameTf, name);
+        firstNameTf.clear();
+        firstNameTf.sendKeys(name);
         return this;
     }
 
     public SignUpPage enterLastName(String name) {
         WebElement firstNameTf = findElementById("LastName");
-        enterText(firstNameTf, name);
+        firstNameTf.clear();
+        firstNameTf.sendKeys(name);
         return this;
     }
 
     public SignUpPage enterUserName(String name) {
         if (isElementPresent("//*[@id='EmailAddress']")) {
-            findElement(By.xpath("//a[@id='signup-with-gmail-link']")).click();
-            waitFor(ExpectedConditions.visibilityOfElementLocated(By.id("GmailAddress")));
+            findElement(xpath("//a[@id='signup-with-gmail-link']")).click();
+            waitFor(visibilityOfElementLocated(id("GmailAddress")));
         }
         WebElement firstNameTf = findElementById("GmailAddress");
-        enterText(firstNameTf, name);
+        firstNameTf.clear();
+        firstNameTf.sendKeys(name);
         return this;
     }
 
     public SignUpPage enterPswd(String pswd) {
         WebElement pswdTf = findElementById("Passwd");
-        enterText(pswdTf, pswd);
+        pswdTf.clear();
+        pswdTf.sendKeys(pswd);
         return this;
     }
 
     public SignUpPage repeatPswd(String pswd) {
         WebElement pswdRepTf = findElementById("PasswdAgain");
-        enterText(pswdRepTf, pswd);
+        pswdRepTf.clear();
+        pswdRepTf.sendKeys(pswd);
         return this;
     }
 
@@ -56,7 +65,8 @@ public class SignUpPage extends Page {
 
     private void enterBDYear(String year) {
         WebElement element = findElementById("BirthYear");
-        enterText(element, year);
+        element.clear();
+        element.sendKeys(year);
     }
 
     private void selectBDMonth(String month) {
@@ -69,7 +79,8 @@ public class SignUpPage extends Page {
 
     private void enterBDDay(String day) {
         WebElement element = findElementById("BirthDay");
-        enterText(element, day);
+        element.clear();
+        element.sendKeys(day);
     }
 
     /**
@@ -108,14 +119,19 @@ public class SignUpPage extends Page {
 
     public SignUpPage enterCurrentEMail(String email) {
         WebElement element = findElementById("RecoveryEmailAddress");
-        enterText(element, email);
+        element.clear();
+        element.sendKeys(email);
         return this;
     }
 
     public SignUpPage enterCaptcha() {
         System.out.println("Please enter recaptcha manually");
 
-        wait_(20);
+        try {
+            Thread.sleep(20);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return this;
     }
 

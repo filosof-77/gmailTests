@@ -18,7 +18,8 @@ public class LoginPage extends Page {
             signInWithDiffAccount();
         }
         WebElement element = findElement(By.id("Email"));
-        enterText(element, tmpUserName);
+        element.clear();
+        element.sendKeys(tmpUserName);
         findElement(By.id("next")).click();
         waitFor(ExpectedConditions.visibilityOfElementLocated(By.id("Passwd")));
         return this;
@@ -34,7 +35,8 @@ public class LoginPage extends Page {
 
     public LoginPage enterPswd(String tmpUserPswd) {
         WebElement element = findElementById("Passwd");
-        enterText(element, tmpUserPswd);
+        element.clear();
+        element.sendKeys(tmpUserPswd);
         if (isElementPresent("//input[@id='PersistentCookie']")) {
             deselectCheckbox(driver.findElement(By.id("PersistentCookie")));
         }

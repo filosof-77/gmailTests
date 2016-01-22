@@ -3,7 +3,6 @@ package com.gmail;
 import com.gmail.configs.IUser;
 import com.gmail.configs.Params;
 import com.gmail.configs.TestBase;
-import com.gmail.datadriver.GenerateDate;
 import com.gmail.pages.GmailMainPage;
 import com.gmail.pages.MailPage;
 import org.openqa.selenium.By;
@@ -23,21 +22,22 @@ import static org.testng.Assert.assertTrue;
  * Time: 18:39
  */
 public class MainGmailPageTest extends TestBase {
-    GmailMainPage gmailMainPage;
-    MailPage mailPage;
-    public static final String PATH = Params.GM_URL;
-    String title, body, receiver;
+    private GmailMainPage gmailMainPage;
+    private MailPage mailPage;
+    private String title;
+    private String body;
+    private String receiver;
 
     @BeforeTest
     public void setUpTest() throws Exception {
         title = "Marry christmas and Happy New Year!";
-        body = GenerateDate.getRandomString(50);
+        body = "This is test message.";
         receiver = Params.getTmpUserName();
     }
 
     @BeforeMethod
     public void setUp() throws Exception {
-        gmailMainPage = openPage(IUser.TEMP_USER, PATH, GmailMainPage.class);
+        gmailMainPage = openPage(IUser.TEMP_USER, Params.GM_URL, GmailMainPage.class);
         gmailMainPage.waitFor(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@gh='cm' and .='COMPOSE']")));
     }
 

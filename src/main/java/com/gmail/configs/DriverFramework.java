@@ -32,7 +32,7 @@ public class DriverFramework {
     }
 
 
-    protected WebDriver getDriver(DesiredCapabilities capabilities) {
+    WebDriver getDriver(DesiredCapabilities capabilities) {
         // 1. WebDriver instance is not created yet
         if (driver == null) {
             return createLocalDriver(capabilities);
@@ -41,7 +41,7 @@ public class DriverFramework {
         try {
             driver.getCurrentUrl();
         } catch (Throwable t) {
-            t.printStackTrace(Params.EXCEPTION_LOG);
+            t.printStackTrace();
             return createLocalDriver(capabilities);
         }
         // . Just use existing WebDriver instance
@@ -54,7 +54,7 @@ public class DriverFramework {
                 driver.quit();
             }
         } catch (Exception e) {
-            e.printStackTrace(Params.EXCEPTION_LOG);
+            e.printStackTrace();
         }
         driver = null;
     }

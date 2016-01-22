@@ -3,13 +3,14 @@ package com.gmail;
 import com.gmail.configs.IUser;
 import com.gmail.configs.Params;
 import com.gmail.configs.TestBase;
-import com.gmail.datadriver.GenerateDate;
 import com.gmail.pages.GmailMainPage;
 import com.gmail.pages.SignUpPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+
+import java.util.Random;
 
 import static org.testng.Assert.assertTrue;
 import static org.testng.Reporter.log;
@@ -21,30 +22,33 @@ import static org.testng.Reporter.log;
  * Time: 17:58
  */
 public class RegistrationPageTest extends TestBase {
-    SignUpPage signUpPage;
-    public static final String PATH_REGISTER_USER = Params.ACCOUNT_MANAGE_HOST + "/SignUp";
-    GmailMainPage gmailMainPage;
-    String dob, name, pswd;
+    private String PATH_REGISTER_USER = Params.ACCOUNT_MANAGE_HOST + "/SignUp";
+    private int number = new Random().nextInt(9999);
+    private SignUpPage signUpPage;
+    private GmailMainPage gmailMainPage;
+    private String dob;
+    private String name;
+    private String pswd;
 
     @BeforeTest
     public void setUp() throws Exception {
         signUpPage = openPage(PATH_REGISTER_USER, SignUpPage.class);
-        pswd = GenerateDate.getPassword(8);
-        dob = GenerateDate.getDob("dd-MM-yyy");
-        name = GenerateDate.getElvenName(5, 8) + GenerateDate.getInteger(100, 500);
+        pswd = "SuperSecuredP@$$W0RD";
+        dob = "12-12-1988";
+        name = "johndoe.account" + number;
         signUpPage.changeLanguage("en");
     }
 
     @Test
     public void testRegisterTestUser() throws Exception {
-        signUpPage.enterFirstName(GenerateDate.getMaleName())
-                .enterLastName(GenerateDate.getSurname())
+        signUpPage.enterFirstName("John")
+                .enterLastName("Doe")
                 .enterUserName(name)
                 .enterPswd(pswd)
                 .repeatPswd(pswd)
                 .selectBDay(dob)
                 .selectGender("Male")
-                .enterPhoneNumber(GenerateDate.getPhone())
+                .enterPhoneNumber("+38066987" + number)
                 .enterCurrentEMail("blababla98765@gmail.com")
                 .enterCaptcha()
                 .selectLocation("Ukraine")
@@ -54,8 +58,8 @@ public class RegistrationPageTest extends TestBase {
         if (signUpPage.isElementPresent("//input[@id='signupidvinput']")) {
             log("Sorry we cant create user with random data without phone confirmation. We'll use already created user.");
             gmailMainPage = openPage(IUser.TEST_USER, Params.GM_URL, GmailMainPage.class);
-            Params.setTmpUserName(Params.TEST_USER_NAME);
-            Params.setTmpUserPswd(Params.TEST_USER_PSWD);
+            Params.setTmpUserName(Params.getTestUserName());
+            Params.setTmpUserPswd(Params.getTestUserPswd());
         } else {
             assertTrue(signUpPage.isElementPresent("//h2[contains(.,\"Your new email address is " + name + "@gmail.com\")]"));
             gmailMainPage.continueTOGMail();

@@ -29,21 +29,24 @@ public class GmailMainPage extends Page {
             waitFor(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//textarea[@class='vO' and @name='to']"))));
         }
         WebElement field = findElementByXpath("//textarea[@class='vO' and @name='to']");
-        enterText(field, mail + "@gmail.com");
+        field.clear();
+        field.sendKeys(mail + "@gmail.com");
         field.sendKeys(Keys.RETURN);
         return this;
     }
 
     public GmailMainPage enterTitle(String title) {
         WebElement titleTf = findElementByXpath("//input[@name='subjectbox']");
-        enterText(titleTf, title);
+        titleTf.clear();
+        titleTf.sendKeys(title);
         return this;
     }
 
     public GmailMainPage enterMailText(String text) {
         WebElement mailBodyTf = findElementByXpath("//div[@role='textbox' and @aria-label='Message Body']");
         mailBodyTf.click();
-        enterText(mailBodyTf, text);
+        mailBodyTf.clear();
+        mailBodyTf.sendKeys(text);
         return this;
     }
 

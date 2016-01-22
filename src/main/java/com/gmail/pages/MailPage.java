@@ -7,6 +7,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static org.openqa.selenium.By.xpath;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
+
 /**
  * Created with Intellij IDEA
  * User: filosof_77
@@ -17,10 +20,11 @@ public class MailPage extends Page {
 
 
     public MailPage enterReplyMessage(String bodyTxt) {
-        findElement(By.xpath("//span[contains(@class,'ams')][1]")).click();
-        waitFor(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@role='textbox' and contains(@class,'Am')]")));
+        findElement(xpath("//span[contains(@class,'ams')][1]")).click();
+        waitFor(visibilityOfElementLocated(xpath("//div[@role='textbox' and contains(@class,'Am')]")));
         WebElement el = findElementByXpath("//div[@role='textbox' and contains(@class,'Am')]");
-        enterText(el, bodyTxt);
+        el.clear();
+        el.sendKeys(bodyTxt);
         return this;
     }
 

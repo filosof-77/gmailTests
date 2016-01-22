@@ -16,13 +16,12 @@ import static org.testng.Assert.assertTrue;
  * Time: 18:55
  */
 public class LoginPageTest extends TestBase {
-    public static final String PATH_LOGIN = Params.GM_URL;
-    com.gmail.pages.LoginPage loginPage;
+    private com.gmail.pages.LoginPage loginPage;
 
 
     @BeforeTest
     public void setUp() throws Exception {
-        loginPage = openPage(PATH_LOGIN, LoginPage.class);
+        loginPage = openPage(Params.GM_URL, LoginPage.class);
         loginPage.changeLanguage("en");
     }
 

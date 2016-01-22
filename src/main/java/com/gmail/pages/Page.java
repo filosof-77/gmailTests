@@ -4,7 +4,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.*;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Reporter;
 
 import java.util.concurrent.TimeUnit;
@@ -18,25 +21,16 @@ import java.util.concurrent.TimeUnit;
 public class Page {
     public WebDriver driver;
 
-    public String getElementText(By by) {
-        waitFor(ExpectedConditions.visibilityOfAllElementsLocatedBy(by), 5);
-        return driver.findElement(by).getText();
-    }
-
     public String getElementAttribute(WebElement element, String attribute) {
         return element.getAttribute(attribute);
     }
 
     public WebElement findElement(By by) {
         try {
-            wait_(5).until(ExpectedConditions.visibilityOfElementLocated(by));
+            waitFor(ExpectedConditions.visibilityOfElementLocated(by), 5);
         } catch (Exception ignored) {
         }
         return driver.findElement(by);
-    }
-
-    public WebDriverWait wait_(int sec) {
-        return new WebDriverWait(driver, sec);
     }
 
     public String getElementText(String xpath) {
@@ -50,31 +44,21 @@ public class Page {
                     pollingEvery(500, TimeUnit.MILLISECONDS).
                     ignoring(NoSuchElementException.class).
                     until(condition);
-        } catch (Exception e) {
-            e.printStackTrace(); //todo add log file
+        } catch (Exception ignored) {
         }
-    }
-
-    public void enterText(WebElement element, String text) {
-        Reporter.log("Enter text " + text + " to element on page " + driver.getCurrentUrl() + "\n");
-        element.clear();
-        element.sendKeys(text);
     }
 
     public void waitFor(ExpectedCondition<?> condition) {
         waitFor(condition, 10);
     }
 
-
     public WebElement findElementByXpath(String xpath) {
         return driver.findElement(By.xpath(xpath));
     }
 
-
     public WebElement findElementById(String id) {
         return driver.findElement(By.id(id));
     }
-
 
     public boolean isElementPresent(String xpath) {
         Reporter.log("Check element " + xpath + " present on page " + driver.getCurrentUrl() + "\n");

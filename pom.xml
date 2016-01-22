@@ -10,15 +10,12 @@
 
 
     <properties>
-        <!-- Default suite files if not being specified from mvn command line -->
-        <suiteFile>testngxml/gMailChecker.xml</suiteFile>
-
         <!--chrome, firefox-->
         <browser>firefox</browser>
         <browser>chrome</browser>
         <user>test</user>
         <user>temp</user>
-        <selenium.version>2.47.2</selenium.version>
+        <selenium.version>2.49.1</selenium.version>
 
     </properties>
 
@@ -39,25 +36,19 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-api</artifactId>
-            <version>2.48.2</version>
+            <version>${selenium.version}</version>
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-support</artifactId>
-            <version>2.48.2</version>
+            <version>${selenium.version}</version>
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>${selenium.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>1.7.13</version>
-        </dependency>
     </dependencies>
-
 
     <build>
         <plugins>
@@ -69,6 +60,9 @@
                     <systemPropertyVariables>
                         <BROWSER>${browser}</BROWSER>
                     </systemPropertyVariables>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>testngxml/gMailChecker.xml</suiteXmlFile>
+                    </suiteXmlFiles>
                 </configuration>
             </plugin>
             <plugin>
